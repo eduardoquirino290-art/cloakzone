@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloakZone Settings</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="settings.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <canvas id="stars"></canvas>
+
+    <div class="settings-container">
+        <div class="settings-header">
+            <a href="index.html" class="back-btn">← Back</a>
+            <h1><i class="fas fa-cog"></i> CloakZone Settings</h1>
+        </div>
+
+        <div class="settings-content">
+            <!-- Auto-Cloak Settings -->
+            <div class="settings-section">
+                <h2><i class="fas fa-mask"></i> Auto-Cloak Settings</h2>
+                
+                <div class="setting-item">
+                    <div class="setting-label">
+                        <label for="autoCloak">Enable Auto-Cloak</label>
+                        <p class="setting-desc">Automatically hide CloakZone when suspicious activity is detected</p>
+                    </div>
+                    <div class="setting-control">
+                        <input type="checkbox" id="autoCloak" class="toggle-switch">
+                        <span class="toggle-slider"></span>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-label">
+                        <label for="cloakKey">Quick Cloak Hotkey</label>
+                        <p class="setting-desc">Press this key combination to instantly hide the site</p>
+                    </div>
+                    <div class="setting-control">
+                        <input type="text" id="cloakKey" placeholder="e.g., Alt+Q" readonly>
+                        <button class="btn-secondary" onclick="recordHotkey()">Record Key</button>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-label">
+                        <label for="cloakSensitivity">Cloak Sensitivity</label>
+                        <p class="setting-desc">How quickly to respond to triggers</p>
+                    </div>
+                    <div class="setting-control">
+                        <select id="cloakSensitivity">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About:Blank Security -->
+            <div class="settings-section">
+                <h2><i class="fas fa-shield-alt"></i> About:Blank Security</h2>
+                
+                <div class="setting-item">
+                    <div class="setting-label">
+                        <label for="aboutBlankTab">Enable About:Blank Tab Cloak</label>
+                        <p class="setting-desc">Replace CloakZone with blank tab when cloaking is triggered</p>
+                    </div>
+                    <div class="setting-control">
+                        <input type="checkbox" id="aboutBlankTab" class="toggle-switch" checked>
+                        <span class="toggle-slider"></span>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-label">
+                        <label for="tabTitle">Fake Tab Title</label>
+                        <p class="setting-desc">Tab title when cloaked (appears before about:blank)</p>
+                    </div>
+                    <div class="setting-control">
+                        <input type="text" id="tabTitle" placeholder="e.g., New Tab" value="New Tab">
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-label">
+                        <label for="historyClean">Auto-Clear History</label>
+                        <p class="setting-desc">Automatically clear browsing history when cloaking</p>
+                    </div>
+                    <div class="setting-control">
+                        <input type="checkbox" id="historyClean" class="toggle-switch" checked>
+                        <span class="toggle-slider"></span>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-label">
+                        <label for="cacheClean">Clear Local Data</label>
+                        <p class="setting-desc">Remove cookies and local storage on cloak</p>
+                    </div>
+                    <div class="setting-control">
+                        <input type="checkbox" id="cacheClean" class="toggle-switch" checked>
+                        <span class="toggle-slider"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detection Triggers -->
+            <div class="settings-section">
+                <h2><i class="fas fa-bell"></i> Detection Triggers</h2>
+                
+                <div class="setting-item">
+                    <div class="setting-label">
+                        <label for="keyboardDetect">Keyboard Detection</label>
+                        <p class="setting-desc">Detect specific keys (Escape, Alt+Tab, etc.)</p>
+                    </div>
+                    <div class="setting-control">
+                        <input type="checkbox" id="keyboardDetect" class="toggle-switch" checked>
+                        <span class="toggle-slider"></span>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-label">
+                        <label for="visibilityDetect">Tab Visibility Detection</label>
+                        <p class="setting-desc">Cloak when tab loses focus or window minimizes</p>
+                    </div>
+                    <div class="setting-control">
+                        <input type="checkbox" id="visibilityDetect" class="toggle-switch" checked>
+                        <span class="toggle-slider"></span>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-label">
+                        <label for="mouseMove">Mouse Movement Detection</label>
+                        <p class="setting-desc">Detect unusual mouse patterns</p>
+                    </div>
+                    <div class="setting-control">
+                        <input type="checkbox" id="mouseMove" class="toggle-switch">
+                        <span class="toggle-slider"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recovery Settings -->
+            <div class="settings-section">
+                <h2><i class="fas fa-undo"></i> Recovery</h2>
+                
+                <div class="setting-item">
+                    <div class="setting-label">
+                        <label for="uncloak">Un-Cloak Site</label>
+                        <p class="setting-desc">Return to CloakZone from blank state</p>
+                    </div>
+                    <div class="setting-control">
+                        <input type="text" id="uncloakKey" placeholder="e.g., Ctrl+Shift+U" readonly>
+                        <button class="btn-secondary" onclick="recordUncloakKey()">Record Key</button>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-label">
+                        <label for="recoveryCode">Recovery Code</label>
+                        <p class="setting-desc">Single-use code to regain access</p>
+                    </div>
+                    <div class="setting-control">
+                        <button class="btn-primary" onclick="generateRecoveryCode()">Generate Code</button>
+                        <input type="text" id="recoveryCodeDisplay" readonly placeholder="Your recovery code will appear here">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="settings-actions">
+                <button class="btn-primary" onclick="saveSettings()"><i class="fas fa-save"></i> Save Settings</button>
+                <button class="btn-secondary" onclick="resetSettings()"><i class="fas fa-redo"></i> Reset to Default</button>
+            </div>
+
+            <!-- Status Message -->
+            <div id="statusMessage" class="status-message"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="settings.js"></script>
+</body>
+</html>
