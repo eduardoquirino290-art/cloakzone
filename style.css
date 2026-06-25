@@ -249,3 +249,21 @@ h1{
 
     z-index:-1;
 }
+.apps-grid{
+    display:flex;
+    flex-wrap:wrap;
+    gap:24px;
+    justify-content:center;
+    margin-top:50px;
+}
+
+.app-card img{
+    width:140px;
+    height:140px;
+    border-radius:20px;
+    transition:.25s;
+}
+
+.app-card:hover img{
+    transform:translateY(-5px);
+}
